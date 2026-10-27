@@ -32,3 +32,21 @@ input,textarea,select{width:100%;padding:11px;border:1px solid var(--line);borde
 .sm{padding:7px 14px;font-size:13px}.msg{color:var(--mut);text-align:center;padding:30px}
 .hide{display:none}
 .pic img{max-width:100%;max-height:100%;object-fit:contain}.nav-a{cursor:pointer}
+.hero img.himg{width:100%;border-radius:20px;display:block}
+.pic{background:#f1f2f4}.pic span{font-size:13px;color:#999}
+.sec{max-width:1000px;margin:0 auto;padding:10px 5vw 30px}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.feat div{background:var(--card);border-radius:14px;padding:20px;box-shadow:0 2px 10px #0001}
+.feat b{display:block;margin-bottom:6px;font-size:17px}.feat span{color:var(--mut);font-size:14px;line-height:1.5}
+.about{color:var(--mut);line-height:1.7;text-align:center;max-width:720px;margin:0 auto}
+details{background:var(--card);border-radius:12px;padding:16px 18px;margin:10px 0;box-shadow:0 2px 10px #0001}
+summary{cursor:pointer;font-weight:600}details p{color:var(--mut);line-height:1.6;margin:10px 0 0}
+footer{text-align:center;padding:30px 5vw 40px;color:var(--mut);font-size:14px;border-top:1px solid var(--line);background:var(--card)}
+footer a{color:var(--mut);cursor:pointer;text-decoration:underline}
+.cartbtn{position:relative;background:none;border:1px solid var(--line);border-radius:99px;padding:8px 16px;cursor:pointer;color:var(--ink);font:inherit}
+.cartbtn b{background:var(--ink);color:var(--bg);border-radius:99px;padding:1px 8px;font-size:12px;margin-left:6px}
+.ci{display:flex;gap:10px;align-items:center;padding:10px 0;border-bottom:1px solid var(--line)}
+.ci img,.ci .ph{width:52px;height:52px;border-radius:8px;object-fit:contain;background:#f1f2f4;flex:none}
+.ci .n{flex:1;font-size:14px}.q{display:flex;align-items:center;gap:6px}.q button{width:28px;height:28px;border-radius:50%;border:1px solid var(--line);background:none;color:var(--ink);cursor:pointer}
+.tot{display:flex;justify-content:space-between;font-weight:600;font-size:18px;padding:14px 0}
+.box{max-width:460px}
