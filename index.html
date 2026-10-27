@@ -1,27 +1,51 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>RONIS – Premium Tech Accessories</title>
+<title>RONIS – Premium Tech Accessories in Pakistan</title>
+<meta name="description" content="Ronis: premium chargers, braided cables and smartwatches. Order online with cash on delivery across Pakistan.">
 <link rel="stylesheet" href="style.css">
 </head><body>
 <header><div class="logo" onclick="go('')">RONIS</div>
-<nav><a class="nav-a" onclick="go('')">Shop</a><a class="nav-a" onclick="go('')">Chargers</a><a class="nav-a" onclick="go('')">Cables</a><a class="nav-a" onclick="go('')">Smartwatches</a><a class="nav-a" onclick="go('admin')">Admin</a></nav></header>
+<nav><a class="nav-a" onclick="go('shop')">Shop</a><a class="nav-a" onclick="go('why')">Why Ronis</a><a class="nav-a" onclick="go('about')">About</a><a class="nav-a" onclick="go('faq')">FAQ</a></nav>
+<button class="cartbtn" onclick="openCart()">🛒 Cart<b id="cc">0</b></button></header>
 
 <main id="shop">
-<section class="hero"><div><span class="tag">NEW COLLECTION 2026 •</span><h1>Power Your Lifestyle</h1><div style="font-size:22px">Premium Tech Accessories</div>
+<section class="hero"><div><span class="tag">NEW COLLECTION •</span><h1>Power Your Lifestyle</h1><div style="font-size:22px">Premium Tech Accessories</div>
 <p>Discover high-performance chargers, durable braided cables, and smartwatches crafted for modern living.</p>
-<button class="btn w" onclick="document.getElementById('prods').scrollIntoView({behavior:'smooth'})">Shop Now</button> <button class="btn" onclick="document.getElementById('prods').scrollIntoView({behavior:'smooth'})">Explore Products</button></div>
-<div class="art">🔌 ⌚</div></section>
-<h2 id="prods">Featured Products</h2><div class="grid" id="grid"></div>
-<div class="bar">Free Shipping on orders over $50 · 1-Year Warranty · 30-Day Returns</div>
+<button class="btn w" onclick="go('prods')">Shop Now</button> <button class="btn" onclick="go('prods')">Explore Products</button></div>
+<div><img class="himg" src="hero.jpg" alt="Ronis charger, braided cable and smartwatch"></div></section>
+
+<div id="prodsec" class="hide"><h2 id="prods">Featured Products</h2><div class="grid" id="grid"></div></div>
+
+<section class="sec" id="why"><h2>Why shop with Ronis</h2><div class="feat">
+<div><b>Quality you can trust</b><span>Every charger, cable and watch is picked for performance, safety and everyday durability.</span></div>
+<div><b>Delivery across Pakistan</b><span>We deliver to your doorstep in all major cities and towns.</span></div>
+<div><b>Cash on Delivery</b><span>Pay in cash when your order arrives. No card or online payment needed.</span></div>
+<div><b>Order confirmation</b><span>After you order, we confirm it on your phone number before we ship it.</span></div></div></section>
+
+<section class="sec" id="about"><h2>About Ronis</h2>
+<p class="about">Ronis is a Pakistani tech accessories brand built around one idea: the things you use every day should be reliable. From fast GaN chargers that power up your phone and laptop in less time, to tough braided cables that don't fray, to smartwatches that track your health and keep up with your day, we bring modern, well-made tech at fair prices, delivered to your door.</p></section>
+
+<section class="sec" id="faq"><h2>Frequently Asked Questions</h2>
+<details><summary>How do I place an order?</summary><p>Add the products you like to your cart, press Cart, enter your name, phone number, city and delivery address, and press Place order. That's it.</p></details>
+<details><summary>How do I pay?</summary><p>We offer Cash on Delivery. You pay the delivery person when your order reaches you.</p></details>
+<details><summary>Do you deliver in my city?</summary><p>Yes, we deliver across Pakistan. Just enter your city and full address at checkout.</p></details>
+<details><summary>How long does delivery take?</summary><p>Orders usually arrive within 3 to 5 working days, depending on your city.</p></details>
+<details><summary>How will I know my order is confirmed?</summary><p>We check every order and confirm it with you on the phone number you gave us, so please enter a number that is active.</p></details>
+<details><summary>Are the products original?</summary><p>Yes. We sell quality-checked products and describe each one honestly on its page.</p></details>
+<details><summary>Can I cancel or change my order?</summary><p>Yes, before it is confirmed and shipped. Contact us as soon as possible with your name and phone number.</p></details>
+<details><summary>What if I enter a wrong address or phone number?</summary><p>Please double-check them before ordering. We can only deliver and confirm using the details you give us.</p></details>
+</section>
+<footer>© <span id="yr"></span> Ronis. All rights reserved. · <a onclick="go('admin')">Admin</a></footer>
 </main>
 
 <main id="adm" class="hide"><div class="admin" id="admBody"></div></main>
 
-<div class="modal" id="ord"><div class="box"><h3 style="margin:0" id="oTitle"></h3>
-<label>Your name</label><input id="oName"><label>Phone number</label><input id="oPhone" type="tel"><label>Delivery address</label><textarea id="oAddr" rows="3"></textarea><label>Quantity</label><input id="oQty" type="number" min="1" value="1">
-<p id="oErr" style="color:#c0392b;font-size:14px"></p>
-<button class="btn k" style="width:100%" onclick="placeOrder()">Confirm order</button><button class="btn" style="width:100%;margin-top:8px" onclick="closeM()">Cancel</button></div></div>
+<div class="modal" id="cart"><div class="box"><h3 style="margin:0 0 6px">Your cart</h3><div id="cartBody"></div>
+<div id="co" class="hide"><label>Your name</label><input id="oName"><label>Phone number</label><input id="oPhone" type="tel" placeholder="03XX XXXXXXX"><label>City</label><input id="oCity"><label>Full delivery address</label><textarea id="oAddr" rows="3"></textarea>
+<p style="color:var(--mut);font-size:13px">Payment: Cash on Delivery</p><p id="oErr" style="color:#c0392b;font-size:14px"></p>
+<button class="btn k" style="width:100%" onclick="placeOrder()">Place order</button></div>
+<button class="btn" style="width:100%;margin-top:8px" onclick="closeCart()">Close</button></div></div>
 
 <script src="app.js"></script>
 </body></html>
