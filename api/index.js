@@ -41,15 +41,21 @@ module.exports = async (req, res) => {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
     const b = typeof req.body === 'string' ? JSON.parse(req.body || '{}') : (req.body || {});
 
-    // ---- public: place an order ----
+    // ---- public: place an order (cart) ----
     if (b.a === 'order') {
-      const pid = oid(b.pid), qty = parseInt(b.qty);
-      const name = str(b.name, 100), phone = str(b.phone, 30), address = str(b.address, 400);
-      if (!pid || !(qty >= 1) || !name || !phone || !address) return res.status(400).json({ error: 'Please fill in name, phone and address.' });
-      const p = await P.findOne({ _id: pid });
-      if (!p) return res.status(404).json({ error: 'Product not found.' });
-      if (qty > p.stock) return res.status(400).json({ error: 'Only ' + p.stock + ' left.' });
-      await O.insertOne({ pid: String(p._id), product: p.name, qty, total: +(qty * p.price).toFixed(2), name, phone, address, status: 'pending', at: Date.now() });
+      const name = str(b.name, 100), phone = str(b.phone, 30), city = str(b.city, 60), address = str(b.address, 400);
+      const items = Array.isArray(b.items) ? b.items.slice(0, 30) : [];
+      if (!items.length || !name || !phone || !city || !address) return res.status(400).json({ error: 'Please fill in name, phone, city and address.' });
+      const lines = []; let total = 0;
+      for (const it of items) {
+        const pid = oid(it.pid), qty = parseInt(it.qty);
+        if (!pid || !(qty >= 1)) return res.status(400).json({ error: 'Invalid cart.' });
+        const p = await P.findOne({ _id: pid });
+        if (!p) return res.status(404).json({ error: 'A product in your cart is no longer available.' });
+        if (qty > p.stock) return res.status(400).json({ error: p.name + ': only ' + p.stock + ' left.' });
+        lines.push({ pid: String(p._id), name: p.name, qty, price: p.price }); total += qty * p.price;
+      }
+      await O.insertOne({ items: lines, total: Math.round(total), name, phone, city, address, status: 'pending', at: Date.now() });
       return res.status(200).json({ ok: true });
     }
 
@@ -71,14 +77,16 @@ module.exports = async (req, res) => {
       if (!o) return res.status(404).json({ error: 'Order not found.' });
       if (o.status === 'pending') {
         await O.updateOne({ _id: id }, { $set: { status: 'confirmed' } });
-        const pid = oid(o.pid);
-        if (pid) { await P.updateOne({ _id: pid }, { $inc: { stock: -o.qty } }); await P.updateOne({ _id: pid, stock: { $lt: 0 } }, { $set: { stock: 0 } }); }
+        for (const it of (o.items || [])) {
+          const pid = oid(it.pid);
+          if (pid) { await P.updateOne({ _id: pid }, { $inc: { stock: -it.qty } }); await P.updateOne({ _id: pid, stock: { $lt: 0 } }, { $set: { stock: 0 } }); }
+        }
       }
       return res.status(200).json({ ok: true });
     }
     if (b.a === 'delOrder') { const id = oid(b.id); if (id) await O.deleteOne({ _id: id }); return res.status(200).json({ ok: true }); }
     if (b.a === 'addProduct') {
-      const price = parseFloat(b.price), stock = parseInt(b.stock), name = str(b.name, 120);
+      const price = Math.round(parseFloat(b.price)), stock = parseInt(b.stock), name = str(b.name, 120);
       if (!name || isNaN(price) || isNaN(stock) || price < 0 || stock < 0) return res.status(400).json({ error: 'Name, price and stock are required.' });
       const img = typeof b.img === 'string' && b.img.startsWith('data:image/') && b.img.length < 900000 ? b.img : '';
       await P.insertOne({ name, desc: str(b.desc, 500), price, stock, offer: str(b.offer, 150), img, createdAt: Date.now() });
