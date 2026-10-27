@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RONIS – Premium Tech Accessories</title>
+<link rel="stylesheet" href="style.css">
+</head><body>
+<header><div class="logo" onclick="go('')">RONIS</div>
+<nav><a class="nav-a" onclick="go('')">Shop</a><a class="nav-a" onclick="go('')">Chargers</a><a class="nav-a" onclick="go('')">Cables</a><a class="nav-a" onclick="go('')">Smartwatches</a><a class="nav-a" onclick="go('admin')">Admin</a></nav></header>
+
+<main id="shop">
+<section class="hero"><div><span class="tag">NEW COLLECTION 2026 •</span><h1>Power Your Lifestyle</h1><div style="font-size:22px">Premium Tech Accessories</div>
+<p>Discover high-performance chargers, durable braided cables, and smartwatches crafted for modern living.</p>
+<button class="btn w" onclick="document.getElementById('prods').scrollIntoView({behavior:'smooth'})">Shop Now</button> <button class="btn" onclick="document.getElementById('prods').scrollIntoView({behavior:'smooth'})">Explore Products</button></div>
+<div class="art">🔌 ⌚</div></section>
+<h2 id="prods">Featured Products</h2><div class="grid" id="grid"></div>
+<div class="bar">Free Shipping on orders over $50 · 1-Year Warranty · 30-Day Returns</div>
+</main>
+
+<main id="adm" class="hide"><div class="admin" id="admBody"></div></main>
+
+<div class="modal" id="ord"><div class="box"><h3 style="margin:0" id="oTitle"></h3>
+<label>Your name</label><input id="oName"><label>Phone number</label><input id="oPhone" type="tel"><label>Delivery address</label><textarea id="oAddr" rows="3"></textarea><label>Quantity</label><input id="oQty" type="number" min="1" value="1">
+<p id="oErr" style="color:#c0392b;font-size:14px"></p>
+<button class="btn k" style="width:100%" onclick="placeOrder()">Confirm order</button><button class="btn" style="width:100%;margin-top:8px" onclick="closeM()">Cancel</button></div></div>
+
+<script src="app.js"></script>
+</body></html>
